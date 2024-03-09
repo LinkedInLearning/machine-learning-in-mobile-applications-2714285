@@ -1,0 +1,53 @@
+hello, greeting
+hi, greeting
+welcome, greeting
+good day, greeting
+hi how are you, greeting
+Hey, greeting
+morning, greeting
+afternoon, greeting
+evening, greeting
+good evening, greeting
+help, help
+I don't know what to do, help
+what can I do, help
+menu, help
+options, help
+I want a menu, help
+please help me, help
+I don't understand what to do, help
+what are my options, help
+This is confusing, help
+evaluate a picture, visual_recognition
+image recognition, visual_recognition
+i want to do image recognition, visual_recognition
+tell me what tree is in a picture, visual_recognition
+Let's do picture recognition, visual_recognition
+do visual recognition, visual_recognition
+what's in a image, visual_recognition
+i took a picture can you tell me what is in it, visual_recognition
+what kind of tree is this, visual_recognition
+tell me the type of tree in a picture, visual_recognition
+i want to work with house of representatives votes, house_votes
+let's predict the budget vote, house_votes
+did someone vote for the budget, house_votes
+let's do some analysis, house_votes
+take me to voting information, house_votes
+how did a member of the house vote, house_votes
+look at budget votes, house_votes
+who votes for the budget, house_votes
+voting analysis, house_votes
+I like cats, none
+It's a great day to go outside, none
+What website should I visit, none
+I like your car, none
+Last year I visited Europe, none
+what grade did you get, none
+I am doing a machine learning class, none
+sdfdsfjkdsf, none
+dsk ldfdsjl, none
+Tomorrow is Monday, none
+Games are fun to play, none
+How much does it cost, none
+Where are we?, none
+Holy smokes Batman, none
