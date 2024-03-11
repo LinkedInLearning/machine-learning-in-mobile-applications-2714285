@@ -20,6 +20,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
+		<UseNativeHttpHandler>false</UseNativeHttpHandler>
+
 		<!-- Display name -->
 		<ApplicationTitle>MLSample</ApplicationTitle>
 
@@ -62,6 +64,7 @@
 		<PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="IBM.Watson.NaturalLanguageUnderstanding.v1" Version="7.0.0" />
 
 	</ItemGroup>
 

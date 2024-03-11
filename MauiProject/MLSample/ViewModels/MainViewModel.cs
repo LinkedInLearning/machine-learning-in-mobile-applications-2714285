@@ -10,6 +10,9 @@ using MLSample.Models;
 using MLSample.Views;
 using Newtonsoft.Json;
 using Microsoft.Maui;
+using IBM.Cloud.SDK.Core.Authentication.Iam;
+using IBM.Watson.NaturalLanguageUnderstanding.v1;
+using IBM.Watson.NaturalLanguageUnderstanding.v1.Model;
 
 namespace MLSample.ViewModels
 {
@@ -138,6 +141,7 @@ namespace MLSample.ViewModels
 
         private Task<TopScoringIntent> GetTopScoringIntent(string enteredText)
         {
+
             var returnValue = new TopScoringIntent { Score = 1, Intent = UserIntent.PricePrediction };
 
             var tcs = new TaskCompletionSource<TopScoringIntent>();
@@ -150,7 +154,7 @@ namespace MLSample.ViewModels
         private UserIntent GetIntentFromClass(string className)
         {
             var returnValue = UserIntent.Unknown;
-            switch (className.ToLower())
+            switch (className.ToLower().Trim())
             {
                 case "greeting":
                     returnValue = UserIntent.Greeting;
