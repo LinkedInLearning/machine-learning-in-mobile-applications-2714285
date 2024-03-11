@@ -145,9 +145,34 @@ namespace MLSample.ViewModels
             var returnValue = new TopScoringIntent { Score = 1, Intent = UserIntent.Unknown };
 
             var tcs = new TaskCompletionSource<TopScoringIntent>();
+ 
+            IamAuthenticator authenticator = new IamAuthenticator(
+                apikey: "{api_key}"
+            );
 
+            NaturalLanguageUnderstandingService service = new NaturalLanguageUnderstandingService("2022-04-07", authenticator);
+            service.SetServiceUrl("{url}");
+
+            var features = new Features()
+            {         
+                Classifications = new ClassificationsOptions()
+                {
+                    Model = "{model_id}"
+                }
+            };
+
+            var result = service.Analyze(
+                features: features,
+                text: enteredText
+                );
+ 
+            var maxConfidence = result.Result.Classifications.Max(c => c.Confidence);
+            if (maxConfidence.HasValue)
+            {
+                var topClass = result.Result.Classifications.First(c => c.Confidence == maxConfidence).ClassName;
+                returnValue = new TopScoringIntent { Score = maxConfidence.Value, Intent = GetIntentFromClass(topClass) };
+            }
             tcs.SetResult(returnValue);
-
             return tcs.Task;
         }
 
