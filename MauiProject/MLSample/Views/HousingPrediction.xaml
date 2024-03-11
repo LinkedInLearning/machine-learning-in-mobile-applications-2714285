@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MLSample.Views.HousingPrediction"
+             xmlns:converters="clr-namespace:MLSample.ValueConverters;assembly=MLSample">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:NullValueConverter x:Key="NullValueConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <VerticalStackLayout Margin="10">
+            <ScrollView>
+                <Grid RowSpacing="5" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Crime (%)" />
+                    <Entry Text="{Binding Crime, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="0" Grid.Column="1"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="Zoning (%)" />
+                    <Entry Text="{Binding ZoningPercent, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="1" Grid.Column="1" />
+                    <Label Grid.Row="2" Grid.Column="0" Text="Industry (%)" />
+                    <Entry Text="{Binding IndustryPercent, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="2" Grid.Column="1" />
+                    <Label Grid.Row="3" Grid.Column="0" Text="River Lots (%)" />
+                    <Entry Text="{Binding RiverLot, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="3" Grid.Column="1" />
+                    <Label Grid.Row="4" Grid.Column="0" Text="NOX Concentration (%)" />
+                    <Entry Text="{Binding NoxConcentration, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="4" Grid.Column="1" />
+                    <Label Grid.Row="5" Grid.Column="0" Text="Number of Rooms" />
+                    <Entry Text="{Binding Rooms, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="5" Grid.Column="1" />
+                    <Label Grid.Row="6" Grid.Column="0" Text="Home Age" />
+                    <Entry Text="{Binding HomeAge, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="6" Grid.Column="1" />
+                    <Label Grid.Row="7" Grid.Column="0" Text="Avg Distance to Work" />
+                    <Entry Text="{Binding WorkDistance, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="7" Grid.Column="1" />
+                    <Label Grid.Row="8" Grid.Column="0" Text="Highway Access (%)" />
+                    <Entry Text="{Binding HighwayAccess, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="8" Grid.Column="1" />
+                    <Label Grid.Row="9" Grid.Column="0" Text="Tax in Thousands" />
+                    <Entry Text="{Binding TaxInThousands, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="9" Grid.Column="1" />
+                    <Label Grid.Row="10" Grid.Column="0" Text="Student Teacher Ratio (%)" />
+                    <Entry Text="{Binding StudentTeacherRatio, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="10" Grid.Column="1" />
+                    <Label Grid.Row="11" Grid.Column="0" Text="African Americans (%)" />
+                    <Entry Text="{Binding AfricanAmericanPercent, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="11" Grid.Column="1" />
+                    <Label Grid.Row="12" Grid.Column="0" Text="The Poor (%)" />
+                    <Entry Text="{Binding PoorPercent, Converter={StaticResource NullValueConverter}}" Keyboard="Numeric" Grid.Row="12" Grid.Column="1" />
+                </Grid>
+            </ScrollView>
+            <Button Text="Get Prediction" Command="{Binding PredictHomePrice}" />
+            <StackLayout Orientation="Horizontal" Margin="10" >
+                <Label Text="Value of Home in Thousands" HorizontalOptions="StartAndExpand" />
+                <Label Text="{Binding PredictedPrice}" />
+            </StackLayout>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
