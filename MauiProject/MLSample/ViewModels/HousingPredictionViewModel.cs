@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.Maui;
 using System.Windows.Markup;
+using System.Net.Http.Headers;
 
 namespace MLSample.ViewModels
 {
@@ -275,18 +276,48 @@ namespace MLSample.ViewModels
             PredictedPrice = predictedPrice;
         }
 
-        private Task<double> GetHomePriceAsync(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
+        private async Task<double> GetHomePriceAsync(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
         {
             double returnValue = 0;
 
-            var tcs = new TaskCompletionSource<double>();
-            tcs.SetResult(returnValue);
-            return tcs.Task;
+            var token = await GetAccessToken();
+
+            return returnValue;
+        }
+
+        private async Task<string> GetAccessToken()
+        {
+            var tokenUrl = $"https://iam.cloud.ibm.com/identity/token";
+            var tokenRequest = new HttpClient();
+
+            tokenRequest.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+            var formData = new List<KeyValuePair<string, string>> 
+            {
+                new KeyValuePair<string, string>("grant_type", "urn:ibm:params:oauth:grant-type:apikey"),
+                new KeyValuePair<string, string>("apikey", "{apiKey}")
+            };
+
+            using var requestMessage = new HttpRequestMessage(HttpMethod.Post, tokenUrl) { Content = new FormUrlEncodedContent(formData) };
+
+            var tokenResponse = await tokenRequest.SendAsync(requestMessage);
+
+            tokenResponse.EnsureSuccessStatusCode();
+            string responseBody = await tokenResponse.Content.ReadAsStringAsync();
+
+            var token = JsonConvert.DeserializeObject<Token>(responseBody);
+
+            return token?.access_token ?? string.Empty;
         }
 
         private void PropertyIsChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    public class Token
+    {
+        public string access_token { get; set; }
     }
 }
