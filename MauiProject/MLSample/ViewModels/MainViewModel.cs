@@ -142,7 +142,7 @@ namespace MLSample.ViewModels
         private Task<TopScoringIntent> GetTopScoringIntent(string enteredText)
         {
 
-            var returnValue = new TopScoringIntent { Score = 1, Intent = UserIntent.PricePrediction };
+            var returnValue = new TopScoringIntent { Score = 1, Intent = UserIntent.Unknown };
 
             var tcs = new TaskCompletionSource<TopScoringIntent>();
 
