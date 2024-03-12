@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Maui;
 using System.Windows.Markup;
 using System.Net.Http.Headers;
+using MLSample.Models;
 
 namespace MLSample.ViewModels
 {
@@ -282,6 +283,27 @@ namespace MLSample.ViewModels
 
             var token = await GetAccessToken();
 
+            if (!string.IsNullOrEmpty(token))
+            {
+                var serviceUrl = "{url}";
+                var tokenRequest = new HttpClient();
+
+                tokenRequest.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                tokenRequest.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                var modelRequest = new ModelRequest();
+                modelRequest.InputData.Values.Add(new List<double?> { crime, zoningPercent, industryPercent, riverLot, noxConcentration, rooms, homeAge, workDistance, highwayAccess, taxInThousands, studentTeacherRation, africanAmericanPercent, poorPercent });
+
+                var json = JsonConvert.SerializeObject(modelRequest);
+
+                using var requestMessage = new HttpRequestMessage(HttpMethod.Post, serviceUrl) { Content = new StringContent(json, Encoding.UTF8, "application/json") };
+
+                var response = await tokenRequest.SendAsync(requestMessage);
+
+                response.EnsureSuccessStatusCode();
+
+            }
+
             return returnValue;
         }
 
@@ -295,7 +317,7 @@ namespace MLSample.ViewModels
             var formData = new List<KeyValuePair<string, string>> 
             {
                 new KeyValuePair<string, string>("grant_type", "urn:ibm:params:oauth:grant-type:apikey"),
-                new KeyValuePair<string, string>("apikey", "{apiKey}")
+                new KeyValuePair<string, string>("apikey", "{apiKey}}")
             };
 
             using var requestMessage = new HttpRequestMessage(HttpMethod.Post, tokenUrl) { Content = new FormUrlEncodedContent(formData) };
