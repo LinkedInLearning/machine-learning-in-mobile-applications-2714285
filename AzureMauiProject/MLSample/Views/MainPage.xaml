@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MLSample.Views.MainPage"
+             xmlns:converters="clr-namespace:MLSample.ValueConverters;assembly=MLSample"
+             xmlns:local="clr-namespace:MLSample.Views;assembly=MLSample">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:AlignmentValueConverter x:Key="AlignmentValueConverter" />
+            <converters:ColorValueConverter x:Key="ColorValueConverter" />
+            <converters:WidthValueConverter x:Key="WidthValueConverter" />
+            <converters:HeightValueConverter x:Key="HeightValueConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Margin="10" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="75" />
+        </Grid.ColumnDefinitions>
+        <Label Text="What do you want to do?" Grid.Row="0" Grid.ColumnSpan="2" />
+        <ListView x:Name="lstConversation" Grid.Row="1"  Grid.ColumnSpan="2" ItemsSource="{Binding AppConversation}" SeparatorVisibility="None" SelectionMode="None" HasUnevenRows="true">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <HorizontalStackLayout Margin="5,10,5,10" BackgroundColor="{Binding ClientMessage, Converter={StaticResource ColorValueConverter}}" Padding="3,3,3,3">
+                            <Label WidthRequest="{Binding ., Converter={StaticResource WidthValueConverter}}" HeightRequest="{Binding Message, Converter={StaticResource HeightValueConverter}}" Text="{Binding Message}" HorizontalTextAlignment="{Binding ClientMessage, Converter={StaticResource AlignmentValueConverter}}" TextColor="White" LineBreakMode="WordWrap" MaxLines="3" />
+                        </HorizontalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Entry x:Name="txtDialog" Grid.Row="2" Grid.Column="0" Text="{Binding UserText}"/>
+        <Button x:Name="cmdSend" Text="Send" Grid.Row="2" Grid.Column="1" Command="{Binding SendText}" />
+    </Grid>
+</ContentPage>

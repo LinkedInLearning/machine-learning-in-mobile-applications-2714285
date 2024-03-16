@@ -1,0 +1,460 @@
+{
+    "projectFileVersion": "2022-05-01",
+    "stringIndexType": "Utf16CodeUnit",
+    "metadata": {
+      "projectName": "linkedin-nlp",
+      "storageInputContainerName": "linkedinmlstorage",
+      "projectKind": "CustomSingleLabelClassification",
+      "description": "natural language for our app",
+      "language": "en",
+      "multilingual": false,
+      "settings": {}
+    },
+    "assets": {
+      "projectKind": "CustomSingleLabelClassification",
+      "classes": [
+        {
+          "category": "greeting"
+        },
+        {
+          "category": "help"
+        },
+        {
+          "category": "visual_recognition"
+        },
+        {
+          "category": "price_prediction"
+        },
+        {
+          "category": "none"
+        }
+      ],
+      "documents": [
+        {
+          "location": "001.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "002.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "003.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "004.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "005.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "006.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "007.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "008.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "009.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "010.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "greeting"
+            }
+        },
+        {
+          "location": "011.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "012.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "013.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "014.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "015.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "016.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "017.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "018.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "019.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "020.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "help"
+            }
+        },
+        {
+          "location": "021.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "022.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "023.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "024.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "025.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "026.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "027.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "028.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "029.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "030.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "visual_recognition"
+            }
+        },
+        {
+          "location": "031.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "032.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "033.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "034.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "035.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "036.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "037.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "038.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "039.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "price_prediction"
+            }
+        },
+        {
+          "location": "040.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "041.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "042.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "043.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "044.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "045.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "046.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "047.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "048.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "049.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "050.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "051.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "052.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        },
+        {
+          "location": "053.txt",
+          "language": "en-us",
+          "class":
+            {
+              "category": "none"
+            }
+        }
+      ]
+    }
+  }
+  
