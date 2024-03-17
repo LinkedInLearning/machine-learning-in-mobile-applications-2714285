@@ -10,6 +10,8 @@ using MLSample.Models;
 using MLSample.Views;
 using Newtonsoft.Json;
 using Microsoft.Maui;
+using Azure;
+using Azure.AI.TextAnalytics;
 
 namespace MLSample.ViewModels
 {
@@ -128,7 +130,7 @@ namespace MLSample.ViewModels
             UserIntent returnIntent = UserIntent.Unknown;
 
             var topScoringIntent = await GetTopScoringIntent(enteredText);
-            if (topScoringIntent.Score >= .55f)
+            if (topScoringIntent.Score >= .25f)
             {
                 returnIntent = topScoringIntent.Intent;
             }
@@ -136,15 +138,38 @@ namespace MLSample.ViewModels
             return returnIntent;
         }
 
-        private Task<TopScoringIntent> GetTopScoringIntent(string enteredText)
+        private async Task<TopScoringIntent> GetTopScoringIntent(string enteredText)
         {
             var returnValue = new TopScoringIntent { Score = 1, Intent = UserIntent.PricePrediction };
 
-            var tcs = new TaskCompletionSource<TopScoringIntent>();
+            Uri endpoint = new("{URL}");
+            AzureKeyCredential credential = new("{API Key}");
+            TextAnalyticsClient client = new(endpoint, credential);
 
-            tcs.SetResult(returnValue);
+            List<string> requestText = new()
+            {
+                enteredText
+            };
 
-            return tcs.Task;
+            string projectName = "LinkedInSingleClassification";
+            string deploymentName = "LinkedInLanguageDeployment";
+
+            // Perform the text analysis operation.
+            ClassifyDocumentOperation operation = await client.SingleLabelClassifyAsync(WaitUntil.Completed, requestText, projectName, deploymentName);
+            await foreach (ClassifyDocumentResultCollection documentsInPage in operation.Value)
+            {
+                foreach (ClassifyDocumentResult documentResult in documentsInPage)
+                {
+                    if (documentResult.ClassificationCategories.Count > 0)
+                    {
+                        var topClassification = documentResult.ClassificationCategories.OrderByDescending(c => c.ConfidenceScore).First();
+                        returnValue.Score = topClassification.ConfidenceScore;
+                        returnValue.Intent = GetIntentFromClass(topClassification.Category);
+                    }
+                }
+            }
+
+            return returnValue;
         }
 
         private UserIntent GetIntentFromClass(string className)
