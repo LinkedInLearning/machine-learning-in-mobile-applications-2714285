@@ -13,6 +13,7 @@ using MLSample.Interfaces;
 using MLSample.Models;
 using Newtonsoft.Json;
 using Microsoft.Maui;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 
 namespace MLSample.ViewModels
 {
@@ -100,13 +101,35 @@ namespace MLSample.ViewModels
             }
         }
 
-        private Task EvaluateImageAsync(object image)
+        private async Task EvaluateImageAsync(object image)
         {
             IsBusy = true;
+            ImageType = $"Evaluating {image.ToString()}";
+            string predictionEndpoint = "{URL}";
+            string apiKey = "{APIKey}";
             try
             {
-                ImageType = $"No idea what {image.ToString()} is";
-                return Task.CompletedTask;
+                ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(apiKey);
+                CustomVisionPredictionClient predictionApi = new CustomVisionPredictionClient(credentials)
+                {
+                    Endpoint = predictionEndpoint
+                };
+
+                using (Stream imageStream = await ImageLoader.LoadImageStreamAsync(image as string))
+                {
+
+                        var result = await predictionApi.ClassifyImageAsync(new Guid("{projectId}"), "{deployement name}", imageStream);
+
+                        if (result != null && result.Predictions != null && result.Predictions.Count > 0)
+                        {
+                            var prediction = result.Predictions.OrderByDescending(p => p.Probability).First();
+                            ImageType = $"{prediction.TagName} ({prediction.Probability:P1})";
+                        }
+                        else
+                        {
+                            ImageType = $"No idea what {image.ToString()} is";
+                        }
+                }
             }
             finally
             {
