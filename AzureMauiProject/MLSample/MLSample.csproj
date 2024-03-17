@@ -24,7 +24,7 @@
 		<ApplicationTitle>MLSample</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.mlsample</ApplicationId>
+		<ApplicationId>com.companyname.azuremlsample</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
