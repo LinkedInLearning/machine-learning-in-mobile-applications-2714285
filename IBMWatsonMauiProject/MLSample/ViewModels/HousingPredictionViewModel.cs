@@ -247,7 +247,7 @@ namespace MLSample.ViewModels
             {
                 if (_PredictedPrice != value)
                 {
-                    _PoorPercent = value;
+                    _PredictedPrice = value;
                     PropertyIsChanged(nameof(PredictedPrice));
                 }
             }
