@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.Maui;
 using System.Windows.Markup;
+using System.Net.Http.Headers;
 using MLSample.Models;
 
 namespace MLSample.ViewModels
@@ -276,13 +277,41 @@ namespace MLSample.ViewModels
             PredictedPrice = predictedPrice;
         }
 
-        private Task<double> GetHomePriceAsync(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
+        private async Task<double> GetHomePriceAsync(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
         {
             double returnValue = 0;
+            string apiKey = "{api key}";
+            string endPoint = "{endpoint url}";
 
-            var tcs = new TaskCompletionSource<double>();
-            tcs.SetResult(returnValue);
-            return tcs.Task;
+            var handler = new HttpClientHandler()
+            {
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback =
+                        (httpRequestMessage, cert, cetChain, policyErrors) => { return true; }
+            };
+
+            using (var client = new HttpClient(handler))
+            {
+
+                var json = GetSerializedJson(crime, zoningPercent, industryPercent, riverLot, noxConcentration, rooms, homeAge, workDistance, highwayAccess, taxInThousands, studentTeacherRation, africanAmericanPercent, poorPercent);
+
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( "Bearer", apiKey);
+                client.BaseAddress = new Uri(endPoint);
+
+                var content = new StringContent(json);
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                HttpResponseMessage response = await client.PostAsync("", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string resultString = await response.Content.ReadAsStringAsync();
+
+                    returnValue = GetResultValue(resultString) ?? 0;
+                }
+            }
+
+            return returnValue;
         }
 
         private string GetSerializedJson(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
