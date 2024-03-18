@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.Maui;
 using System.Windows.Markup;
+using MLSample.Models;
 
 namespace MLSample.ViewModels
 {
@@ -282,6 +283,49 @@ namespace MLSample.ViewModels
             var tcs = new TaskCompletionSource<double>();
             tcs.SetResult(returnValue);
             return tcs.Task;
+        }
+
+        private string GetSerializedJson(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
+        {
+            var data = new HousingPredictionRequest
+                {
+                    Inputs = new HousingPredictionRequestDataList
+                    {
+                        Data = new List<HousingPredictionRequestData>
+                        {
+                            new HousingPredictionRequestData
+                            {
+                                Crime = crime,
+                                ZoningPercent = zoningPercent,
+                                IndustryPercent = industryPercent,
+                                RiverLot = riverLot,
+                                NitricOxide = noxConcentration,
+                                Rooms = rooms,
+                                Age = homeAge,
+                                Distance = workDistance,
+                                HighwayAccess = highwayAccess,
+                                Tax = taxInThousands,
+                                PupilTeacherRatio = studentTeacherRation,
+                                AfricanAmerican = africanAmericanPercent,
+                                LowerStatus = poorPercent
+                            }
+                        }
+                    }
+                };
+                
+                return JsonConvert.SerializeObject(data);
+        }
+
+        private double? GetResultValue(string resultString)
+        {
+            double? returnValue = null;
+            var result = JsonConvert.DeserializeObject<HousingPredictionResponse>(resultString);
+
+            if (result != null && result.Results != null && result.Results.Count > 0)
+            {
+                returnValue = result.Results[0];
+            }
+            return returnValue;
         }
 
         private void PropertyIsChanged(string propertyName)
