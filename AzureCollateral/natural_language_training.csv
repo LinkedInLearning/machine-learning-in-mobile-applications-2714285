@@ -1,0 +1,44 @@
+example, class
+welcome, greeting
+good day, greeting
+hi how are you, greeting
+Hey, greeting
+morning, greeting
+afternoon, greeting
+evening, greeting
+good evening, greeting
+what can I do, help
+menu, help
+options, help
+I want a menu, help
+please help me, help
+I don't understand what to do, help
+what are my options, help
+This is confusing, help
+i want to do image recognition, visual_recognition
+tell me what tree is in a picture, visual_recognition
+Let's do picture recognition, visual_recognition
+do visual recognition, visual_recognition
+what's in a image, visual_recognition
+i took a picture can you tell me what is in it, visual_recognition
+what kind of tree is this, visual_recognition
+tell me the type of tree in a picture, visual_recognition
+How much did a home cost in 1970, price_prediction
+let's do some prediction, price_prediction
+Boston home prices, price_prediction
+cost of home in 1970's Boston, price_prediction
+price prediction, price_prediction
+estimate home value, price_prediction
+house value analysis, price_prediction
+What website should I visit, none
+I like your car, none
+Last year I visited Europe, none
+what grade did you get, none
+I am doing a machine learning class, none
+sdfdsfjkdsf, none
+dsk ldfdsjl, none
+Tomorrow is Monday, none
+Games are fun to play, none
+How much does it cost, none
+Where are we?, none
+Holy smokes Batman, none
