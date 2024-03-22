@@ -141,6 +141,23 @@ namespace MLSample.ViewModels
             var returnValue = new TopScoringIntent { Score = 1, Intent = UserIntent.PricePrediction };
 
             var tcs = new TaskCompletionSource<TopScoringIntent>();
+        #if __IOS__
+            var assetPath = Foundation.NSBundle.MainBundle.GetUrlForResource("LinkedInNaturalLanguage", "mlmodelc", "Platforms/iOS");
+            var model = CoreML.MLModel.Create(assetPath, out Foundation.NSError error);
+
+            var textValue = CoreML.MLFeatureValue.Create(enteredText);
+
+            var inputs = new Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject> (new Foundation.NSString("text"), textValue);
+            var inputFeatures = new CoreML.MLDictionaryFeatureProvider (inputs, out error);
+
+            var outFeatures = model.GetPrediction(inputFeatures, out Foundation.NSError error1);
+
+            if (error1 == null && outFeatures != null)
+            {
+                var result = outFeatures.GetFeatureValue("label")?.StringValue;
+                returnValue = new TopScoringIntent { Score = 1, Intent = GetIntentFromClass(result) };
+            }
+        #endif
 
             tcs.SetResult(returnValue);
 

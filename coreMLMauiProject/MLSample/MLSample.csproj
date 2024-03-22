@@ -66,4 +66,9 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
 	</ItemGroup>
+	<ItemGroup>
+		<CoreMLModel Include="Platforms/iOS/LinkedInImageClassification.mlmodel" />
+		<CoreMLModel Include="Platforms/iOS/LinkedInNaturalLanguage.mlmodel" />
+		<CoreMLModel Include="Platforms/iOS/LinkedInPricePrediction.mlmodel" />
+	</ItemGroup>
 </Project>
