@@ -140,12 +140,12 @@ namespace MLSample.ViewModels
         }
 
 #if __IOS__
-        private UIImage ScaleImage(UIImage image)
+        private UIImage ScaleImage(UIImage image, int width, int height)
         {
             UIImage returnValue;
-            UIKit.UIGraphics.BeginImageContextWithOptions(new CGSize(299, 299), false, 0.0f);
+            UIKit.UIGraphics.BeginImageContextWithOptions(new CGSize(width, height), false, 0.0f);
 
-            image.Draw(new CGRect(new CGPoint(), size: new CGSize(299, 299)));
+            image.Draw(new CGRect(new CGPoint(), size: new CGSize(width, height)));
             returnValue =  UIKit.UIGraphics.GetImageFromCurrentImageContext();
             UIKit.UIGraphics.EndImageContext();
             return returnValue;
