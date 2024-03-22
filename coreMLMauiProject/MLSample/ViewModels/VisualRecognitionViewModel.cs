@@ -14,6 +14,13 @@ using MLSample.Models;
 using Newtonsoft.Json;
 using Microsoft.Maui;
 using Microsoft.Maui.Graphics.Platform;
+#if __IOS__
+using CoreVideo;
+using UIKit;
+using CoreGraphics;
+using CoreML;
+using Foundation;
+#endif
 
 namespace MLSample.ViewModels
 {
@@ -131,6 +138,43 @@ namespace MLSample.ViewModels
 
             return returnValue;
         }
+
+#if __IOS__
+        private UIImage ScaleImage(UIImage image)
+        {
+            UIImage returnValue;
+            UIKit.UIGraphics.BeginImageContextWithOptions(new CGSize(299, 299), false, 0.0f);
+
+            image.Draw(new CGRect(new CGPoint(), size: new CGSize(299, 299)));
+            returnValue =  UIKit.UIGraphics.GetImageFromCurrentImageContext();
+            UIKit.UIGraphics.EndImageContext();
+            return returnValue;
+        }
+
+
+        private CVPixelBuffer ConvertImageToBuffer(UIImage image)
+        {
+            var attrs = new CVPixelBufferAttributes();
+			attrs.CGImageCompatibility = true;
+			attrs.CGBitmapContextCompatibility = true;
+
+			var cgImg = image.CGImage;
+
+			var pb = new CVPixelBuffer(cgImg.Width, cgImg.Height, CVPixelFormatType.CV32ARGB, attrs);
+			pb.Lock(CVPixelBufferLock.None);
+			var pData = pb.BaseAddress;
+			var colorSpace = CGColorSpace.CreateDeviceRGB();
+			var ctxt = new CGBitmapContext(pData, cgImg.Width, cgImg.Height, 8, pb.BytesPerRow, colorSpace, CGImageAlphaInfo.NoneSkipFirst);
+			ctxt.TranslateCTM(0, cgImg.Height);
+			ctxt.ScaleCTM(1.0f, -1.0f);
+			UIGraphics.PushContext(ctxt);
+			image.Draw(new CGRect(0, 0, cgImg.Width, cgImg.Height));
+			UIGraphics.PopContext();
+			pb.Unlock(CVPixelBufferLock.None);
+
+            return pb;
+        }
+#endif
 
         private void PropertyIsChanged(string propertyName)
         {
