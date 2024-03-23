@@ -11,6 +11,9 @@ using Newtonsoft.Json.Linq;
 using Microsoft.Maui;
 using System.Windows.Markup;
 using MLSample.Models;
+#if __IOS__
+using CoreML;
+#endif
 
 namespace MLSample.ViewModels
 {
@@ -285,6 +288,32 @@ namespace MLSample.ViewModels
             tcs.SetResult(returnValue);
             return tcs.Task;
         }
+
+        #if __IOS__
+        private MLDictionaryFeatureProvider GetInputObject(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
+        {
+
+            Foundation.NSString[] keys = new Foundation.NSString[] { new Foundation.NSString("Crime"), new Foundation.NSString("zone_percent"), new Foundation.NSString("industry_percent"), new Foundation.NSString("river_lot"), new Foundation.NSString("nox_concentration"), new Foundation.NSString("rooms"), new Foundation.NSString("home_age"), new Foundation.NSString("work_distance"), new Foundation.NSString("highway_access"), new Foundation.NSString("tax_in_thousands"), new Foundation.NSString("student_teacher_ratio"), new Foundation.NSString("african_american_percent"), new Foundation.NSString("poor_percent")};
+            Foundation.NSObject[] values = new Foundation.NSObject[] { GetMLFeatureValue(crime), GetMLFeatureValue(zoningPercent), GetMLFeatureValue(industryPercent), GetMLFeatureValue(riverLot), GetMLFeatureValue(noxConcentration), GetMLFeatureValue(rooms), GetMLFeatureValue(homeAge), GetMLFeatureValue(workDistance), GetMLFeatureValue(highwayAccess), GetMLFeatureValue(taxInThousands), GetMLFeatureValue(studentTeacherRation), GetMLFeatureValue(africanAmericanPercent), GetMLFeatureValue(poorPercent)};
+			var inputs = new Foundation.NSDictionary<Foundation.NSString, Foundation.NSObject> (keys, values);
+            return new MLDictionaryFeatureProvider (inputs, out  Foundation.NSError error);
+
+            
+        }
+
+        private MLFeatureValue GetMLFeatureValue(double? value)
+        {
+            if (value.HasValue)
+            {
+                return MLFeatureValue.Create(value.Value);
+            }
+            else
+            {
+                var a = MLFeatureValue.CreateUndefined(MLFeatureType.Double);
+                return a;
+            }
+        }
+#endif
 
         private void PropertyIsChanged(string propertyName)
         {
