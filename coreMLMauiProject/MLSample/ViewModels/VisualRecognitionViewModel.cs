@@ -136,6 +136,33 @@ namespace MLSample.ViewModels
         {
             string returnValue = "well I'm not sure";
 
+#if __IOS__
+            var assetPath = Foundation.NSBundle.MainBundle.GetUrlForResource("LinkedInImageClassification", "mlmodelc", "Platforms/iOS");
+            MLModelConfiguration options = new MLModelConfiguration();
+            options.ComputeUnits = MLComputeUnits.CpuOnly;
+            var model = MLModel.Create(assetPath, options, out Foundation.NSError error);
+
+            using (Stream imageStream = await ImageLoader.LoadImageStreamAsync(fileName)) 
+            {
+                using (var image = new UIKit.UIImage(Foundation.NSData.FromStream(imageStream))) 
+                {
+                    using (var scaledImage = ScaleImage(image, 360, 360))     
+                    {
+                        var imageValue = MLFeatureValue.Create(scaledImage.CGImage, 360, 360, CVPixelFormatType.CV32ARGB, new MLFeatureValueImageOption(), out Foundation.NSError error2);
+
+			            var inputs = new NSDictionary<NSString, NSObject> (new NSString ("image"), imageValue);
+                        var inputFp = new MLDictionaryFeatureProvider (inputs, out error);
+
+                        var output = model.GetPrediction(inputFp, out Foundation.NSError predictionError);
+                        
+                        if (predictionError == null && output != null)
+                        {
+                            returnValue = output.GetFeatureValue("target").StringValue;
+                        }
+                    }
+                }
+            }
+#endif
             return returnValue;
         }
 
