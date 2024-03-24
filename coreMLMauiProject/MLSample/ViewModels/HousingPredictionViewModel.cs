@@ -284,6 +284,22 @@ namespace MLSample.ViewModels
             double returnValue = 0;
 
             var tcs = new TaskCompletionSource<double>();
+            #if __IOS__
+            var assetPath = Foundation.NSBundle.MainBundle.GetUrlForResource("LinkedInPricePrediction", "mlmodelc", "Platforms/iOS");
+            var model = CoreML.MLModel.Create(assetPath, out Foundation.NSError error);
+
+            var inputFeatures = GetInputObject(Crime, ZoningPercent, IndustryPercent, RiverLot, NoxConcentration, Rooms, HomeAge, WorkDistance, HighwayAccess, TaxInThousands, StudentTeacherRatio, AfricanAmericanPercent, PoorPercent);
+            var outFeatures = model.GetPrediction(inputFeatures, out Foundation.NSError error1);
+
+            if (error1 == null && outFeatures != null)
+            {
+                var result = outFeatures.GetFeatureValue("median_value_in_thousands")?.DoubleValue;
+                if (result.HasValue)
+                {
+                    returnValue = result.Value;
+                }
+            }
+            #endif
 
             tcs.SetResult(returnValue);
             return tcs.Task;
