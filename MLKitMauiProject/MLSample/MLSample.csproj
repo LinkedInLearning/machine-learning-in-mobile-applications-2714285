@@ -74,6 +74,7 @@
       <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.8.1.1" />
       <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" Version="1.6.2.1" />
 	  <PackageReference Include="Xamarin.Google.MLKit.SmartReply" version="117.0.2.7" />
+	  <PackageReference Include="Xamarin.Google.MLKit.ImageLabeling" version="117.0.7.9" />
     </ItemGroup>
 
 </Project>

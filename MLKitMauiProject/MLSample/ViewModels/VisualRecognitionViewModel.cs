@@ -15,6 +15,12 @@ using Newtonsoft.Json;
 using Microsoft.Maui;
 using Microsoft.Maui.Graphics.Platform;
 
+#if __ANDROID__
+using Xamarin.Google.MLKit.Vision.Label;
+using Xamarin.Google.MLKit.Vision.Label.Defaults;
+using Xamarin.Google.MLKit.Vision.Common;
+#endif
+
 namespace MLSample.ViewModels
 {
     public class VisualRecognitionViewModel : INotifyPropertyChanged
@@ -125,11 +131,31 @@ namespace MLSample.ViewModels
 
         }
 
-        private async Task<string> GetTreeTypeAsync(string fileName)
+        private Task<string> GetTreeTypeAsync(string fileName)
         {
-            string returnValue = "well I'm not sure";
+            var tcs = new TaskCompletionSource<string>();
 
-            return returnValue;
+#if __ANDROID__
+            using (var labeler = ImageLabeling.GetClient(ImageLabelerOptions.DefaultOptions))
+            {
+                using (var imageStream = ImageLoader.LoadImageStreamAsync(fileName).Result)
+                {
+                    byte[] imageBytes;
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        imageStream.CopyTo(memoryStream);
+                        imageBytes =  memoryStream.ToArray();
+                    }
+                    var image = Xamarin.Google.MLKit.Vision.Common.InputImage.FromByteArray(imageBytes, 480, 360, 0, InputImage.ImageFormatNv21);
+
+                    var labels = labeler.Process(image).AddOnSuccessListener(new ImageOnSuccessListener(tcs)).AddOnFailureListener(new ImageOnFailureListener(tcs));
+                }   
+            }
+#else
+            tcs.SetResult("Not available on this platform"); 
+#endif
+
+            return tcs.Task;
         }
 
         private void PropertyIsChanged(string propertyName)
@@ -137,4 +163,39 @@ namespace MLSample.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+#if __ANDROID__
+    internal class ImageOnSuccessListener : Java.Lang.Object, Android.Gms.Tasks.IOnSuccessListener
+    {
+        private TaskCompletionSource<string> _tcs;
+        internal ImageOnSuccessListener(TaskCompletionSource<string> tcs)
+        {
+            _tcs = tcs;
+        }
+        public void OnSuccess(Java.Lang.Object result)
+        {
+            var labelResult = (Android.Runtime.JavaList)result;
+            string returnValue = string.Empty;
+            foreach (ImageLabel suggestion in labelResult.ToArray())
+            {
+                returnValue += suggestion.Text + Environment.NewLine;
+            }
+            _tcs.SetResult(returnValue);
+        }
+    }
+
+    internal class ImageOnFailureListener : Java.Lang.Object, Android.Gms.Tasks.IOnFailureListener
+    {
+        private TaskCompletionSource<string> _tcs;
+        internal ImageOnFailureListener(TaskCompletionSource<string> tcs)
+        {
+            _tcs = tcs;
+        }
+
+        public void OnFailure(Java.Lang.Exception e)
+        {
+            _tcs.SetResult($"Error getting result: {e.Message}");
+        }
+    }
+#endif
 }
