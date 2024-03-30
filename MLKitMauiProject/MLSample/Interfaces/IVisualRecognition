@@ -1,0 +1,10 @@
+using System;
+using System.IO;
+
+namespace MLSample.Interfaces
+{
+    public interface IVisualRecognition
+    {
+        string GetTreeType(BinaryReader binaryReader, long byteLength, string fileName);
+    }
+}
