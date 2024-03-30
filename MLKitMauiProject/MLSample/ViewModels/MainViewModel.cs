@@ -15,12 +15,17 @@ namespace MLSample.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+#if __ANDROID__
+        List<Xamarin.Google.MLKit.NL.SmartReply.TextMessage> _conversation;
+#endif
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public MainViewModel()
         {
-
+#if __ANDROID__
+            _conversation = new List<Xamarin.Google.MLKit.NL.SmartReply.TextMessage>();
+#endif
         }
 
         private ObservableCollection<ConversationItem> _AppConversation = new ObservableCollection<ConversationItem>();
@@ -114,6 +119,16 @@ namespace MLSample.ViewModels
                 Message = message.Replace(Environment.NewLine, " "),
                 ClientMessage = client
             });
+#if __ANDROID__
+            if (client)
+            {
+                _conversation.Add(Xamarin.Google.MLKit.NL.SmartReply.TextMessage.CreateForRemoteUser(message, DateTime.Now.Ticks, "RealUser"));
+            }
+            else
+            {
+                _conversation.Add(Xamarin.Google.MLKit.NL.SmartReply.TextMessage.CreateForLocalUser(message.Split(Environment.NewLine)[0], DateTime.Now.Ticks));                 
+            }
+#endif
         }
 
         private Task<string> GetReply(string enteredText)
