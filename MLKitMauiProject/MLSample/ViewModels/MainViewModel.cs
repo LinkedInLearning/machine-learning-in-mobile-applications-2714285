@@ -136,6 +136,15 @@ namespace MLSample.ViewModels
             var returnValue = string.Empty;
 
             var tcs = new TaskCompletionSource<string>();
+            
+#if __ANDROID__
+            var options = new Xamarin.Google.MLKit.NL.SmartReply.SmartReplyGeneratorOptions.Builder().Build(); 
+            var smartReplyGenerator = Xamarin.Google.MLKit.NL.SmartReply.SmartReply.GetClient(options);
+                
+            var result = smartReplyGenerator.SuggestReplies(_conversation).AddOnSuccessListener(new OnSuccessListener(tcs)).AddOnFailureListener(new OnFailureListener(tcs));
+#else
+            tcs.SetResult("I'm sorry, unsupported platform.");
+#endif
 
             return tcs.Task;
         }
@@ -145,6 +154,48 @@ namespace MLSample.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+#if __ANDROID__
+    internal class OnSuccessListener : Java.Lang.Object, Android.Gms.Tasks.IOnSuccessListener
+    {
+        private TaskCompletionSource<string> _tcs;
+        internal OnSuccessListener(TaskCompletionSource<string> tcs)
+        {
+            _tcs = tcs;
+        }
+        public void OnSuccess(Java.Lang.Object result)
+        {
+            var conversationReply = (Xamarin.Google.MLKit.NL.SmartReply.SmartReplySuggestionResult)result;
+            string returnValue = string.Empty;
+            if (conversationReply.Status == Xamarin.Google.MLKit.NL.SmartReply.SmartReplySuggestionResult.StatusSuccess && conversationReply.Suggestions.Count > 0)
+            {
+                foreach(var suggestion in conversationReply.Suggestions)
+                {
+                    returnValue += suggestion.Text + Environment.NewLine;
+                }
+            }
+            else
+            {
+                returnValue = "I'm sorry, I don't know how to respond to that.";
+            }
+            _tcs.SetResult(returnValue);
+        }
+    }
+
+    internal class OnFailureListener : Java.Lang.Object, Android.Gms.Tasks.IOnFailureListener
+    {
+        private TaskCompletionSource<string> _tcs;
+        internal OnFailureListener(TaskCompletionSource<string> tcs)
+        {
+            _tcs = tcs;
+        }
+
+        public void OnFailure(Java.Lang.Exception e)
+        {
+            _tcs.SetResult($"Error getting result: {e.Message}");
+        }
+    }
+#endif
 }
 
 
