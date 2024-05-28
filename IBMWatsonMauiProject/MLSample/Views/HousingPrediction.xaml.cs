@@ -8,7 +8,7 @@ namespace MLSample.Views
         {
             InitializeComponent();
             BindingContext = viewModel;
-            Title = "Boston Home Price Prediction
+            Title = "Boston Home Price Prediction";
         }
     }
 }
