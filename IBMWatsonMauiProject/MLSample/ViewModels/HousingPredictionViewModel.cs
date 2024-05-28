@@ -12,7 +12,6 @@ using Microsoft.Maui;
 using System.Windows.Markup;
 using System.Net.Http.Headers;
 using MLSample.Models;
-using ModelIO;
 
 namespace MLSample.ViewModels
 {
