@@ -12,334 +12,358 @@ using Microsoft.Maui;
 using System.Windows.Markup;
 using System.Net.Http.Headers;
 using MLSample.Models;
+using ModelIO;
 
 namespace MLSample.ViewModels
 {
-    public class HousingPredictionViewModel : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler? PropertyChanged;
+   public class HousingPredictionViewModel : INotifyPropertyChanged
+   {
+       public event PropertyChangedEventHandler? PropertyChanged;
 
-        public HousingPredictionViewModel()
-        {
-        }
+       public HousingPredictionViewModel()
+       {
+       }
 
-        private double? _Crime = null;
-        public double? Crime
-        {
-            get { return _Crime; }
-            set
-            {
-                if (_Crime ==  null || _Crime != value)
-                {
-                    _Crime = value;
-                    PropertyIsChanged(nameof(Crime));
-                }
-            }
-        }
+       private double? _Crime = null;
+       public double? Crime
+       {
+           get { return _Crime; }
+           set
+           {
+               if (_Crime ==  null || _Crime != value)
+               {
+                   _Crime = value;
+                   PropertyIsChanged(nameof(Crime));
+               }
+           }
+       }
 
-        private double? _ZoningPercent = null;
-        public double? ZoningPercent
-        {
-            get { return _ZoningPercent; }
-            set
-            {
-                if (_ZoningPercent ==  null || _ZoningPercent != value)
-                {
-                    _ZoningPercent = value;
-                    PropertyIsChanged(nameof(ZoningPercent));
-                }
-            }
-        }
+       private double? _ZoningPercent = null;
+       public double? ZoningPercent
+       {
+           get { return _ZoningPercent; }
+           set
+           {
+               if (_ZoningPercent ==  null || _ZoningPercent != value)
+               {
+                   _ZoningPercent = value;
+                   PropertyIsChanged(nameof(ZoningPercent));
+               }
+           }
+       }
 
-        private double? _IndustryPercent = null;
-        public double? IndustryPercent
-        {
-            get
-            {
-                return _IndustryPercent;
-            }
-            set
-            {
-                if (_IndustryPercent ==  null || _IndustryPercent != value)
-                {
-                    _IndustryPercent = value;
-                    PropertyIsChanged(nameof(IndustryPercent));
-                }
-            }
-        }
+       private double? _IndustryPercent = null;
+       public double? IndustryPercent
+       {
+           get
+           {
+               return _IndustryPercent;
+           }
+           set
+           {
+               if (_IndustryPercent ==  null || _IndustryPercent != value)
+               {
+                   _IndustryPercent = value;
+                   PropertyIsChanged(nameof(IndustryPercent));
+               }
+           }
+       }
 
-        private double? _RiverLot = null;
-        public double? RiverLot
-        {
-            get
-            {
-                return _RiverLot;
-            }
-            set
-            {
-                if (_RiverLot ==  null || _RiverLot != value)
-                {
-                    _RiverLot = value;
-                    PropertyIsChanged(nameof(RiverLot));
-                }
-            }
-        }
+       private double? _RiverLot = null;
+       public double? RiverLot
+       {
+           get
+           {
+               return _RiverLot;
+           }
+           set
+           {
+               if (_RiverLot ==  null || _RiverLot != value)
+               {
+                   _RiverLot = value;
+                   PropertyIsChanged(nameof(RiverLot));
+               }
+           }
+       }
 
-        private double? _NoxConcentration = null;
-        public double? NoxConcentration
-        {
-            get
-            {
-                return _NoxConcentration;
-            }
-            set
-            {
-                if (_NoxConcentration ==  null || _NoxConcentration != value)
-                {
-                    _NoxConcentration = value;
-                    PropertyIsChanged(nameof(NoxConcentration));
-                }
-            }
-        }
+       private double? _NoxConcentration = null;
+       public double? NoxConcentration
+       {
+           get
+           {
+               return _NoxConcentration;
+           }
+           set
+           {
+               if (_NoxConcentration ==  null || _NoxConcentration != value)
+               {
+                   _NoxConcentration = value;
+                   PropertyIsChanged(nameof(NoxConcentration));
+               }
+           }
+       }
 
-        private double? _Rooms = null;
-        public double? Rooms
-        {
-            get
-            {
-                return _Rooms;
-            }
-            set
-            {
-                if (_Rooms ==  null || _Rooms != value)
-                {
-                    _Rooms = value;
-                    PropertyIsChanged(nameof(Rooms));
-                }
-            }
-        }
+       private double? _Rooms = null;
+       public double? Rooms
+       {
+           get
+           {
+               return _Rooms;
+           }
+           set
+           {
+               if (_Rooms ==  null || _Rooms != value)
+               {
+                   _Rooms = value;
+                   PropertyIsChanged(nameof(Rooms));
+               }
+           }
+       }
 
-        private double? _HomeAge = null;
-        public double? HomeAge
-        {
-            get
-            {
-                return _HomeAge;
-            }
-            set
-            {
-                if (_HomeAge ==  null || _HomeAge != value)
-                {
-                    _HomeAge = value;
-                    PropertyIsChanged(nameof(HomeAge));
-                }
-            }
-        }
+       private double? _HomeAge = null;
+       public double? HomeAge
+       {
+           get
+           {
+               return _HomeAge;
+           }
+           set
+           {
+               if (_HomeAge ==  null || _HomeAge != value)
+               {
+                   _HomeAge = value;
+                   PropertyIsChanged(nameof(HomeAge));
+               }
+           }
+       }
 
-        private double? _WorkDistance = null;
-        public double? WorkDistance
-        {
-            get
-            {
-                return _WorkDistance;
-            }
-            set
-            {
-                if (_WorkDistance ==  null || _WorkDistance != value)
-                {
-                    _WorkDistance = value;
-                    PropertyIsChanged(nameof(WorkDistance));
-                }
-            }
-        }
+       private double? _WorkDistance = null;
+       public double? WorkDistance
+       {
+           get
+           {
+               return _WorkDistance;
+           }
+           set
+           {
+               if (_WorkDistance ==  null || _WorkDistance != value)
+               {
+                   _WorkDistance = value;
+                   PropertyIsChanged(nameof(WorkDistance));
+               }
+           }
+       }
 
-        private double? _HighwayAccess = null;
-        public double? HighwayAccess
-        {
-            get
-            {
-                return _HighwayAccess;
-            }
-            set
-            {
-                if (_HighwayAccess ==  null || _HighwayAccess != value)
-                {
-                    _HighwayAccess = value;
-                    PropertyIsChanged(nameof(HighwayAccess));
-                }
-            }
-        }
+       private double? _HighwayAccess = null;
+       public double? HighwayAccess
+       {
+           get
+           {
+               return _HighwayAccess;
+           }
+           set
+           {
+               if (_HighwayAccess ==  null || _HighwayAccess != value)
+               {
+                   _HighwayAccess = value;
+                   PropertyIsChanged(nameof(HighwayAccess));
+               }
+           }
+       }
 
-        private double? _TaxInThousands = null;
-        public double? TaxInThousands
-        {
-            get
-            {
-                return _TaxInThousands;
-            }
-            set
-            {
-                if (_TaxInThousands ==  null || _TaxInThousands != value)
-                {
-                    _TaxInThousands = value;
-                    PropertyIsChanged(nameof(TaxInThousands));
-                }
-            }
-        }
+       private double? _TaxInThousands = null;
+       public double? TaxInThousands
+       {
+           get
+           {
+               return _TaxInThousands;
+           }
+           set
+           {
+               if (_TaxInThousands ==  null || _TaxInThousands != value)
+               {
+                   _TaxInThousands = value;
+                   PropertyIsChanged(nameof(TaxInThousands));
+               }
+           }
+       }
 
-        private double? _StudentTeacherRatio = null;
-        public double? StudentTeacherRatio
-        {
-            get
-            {
-                return _StudentTeacherRatio;
-            }
-            set
-            {
-                if (_StudentTeacherRatio ==  null || _StudentTeacherRatio != value)
-                {
-                    _StudentTeacherRatio = value;
-                    PropertyIsChanged(nameof(StudentTeacherRatio));
-                }
-            }
-        }
+       private double? _StudentTeacherRatio = null;
+       public double? StudentTeacherRatio
+       {
+           get
+           {
+               return _StudentTeacherRatio;
+           }
+           set
+           {
+               if (_StudentTeacherRatio ==  null || _StudentTeacherRatio != value)
+               {
+                   _StudentTeacherRatio = value;
+                   PropertyIsChanged(nameof(StudentTeacherRatio));
+               }
+           }
+       }
 
-        private double? _AfricanAmericanPercent = null;
-        public double? AfricanAmericanPercent
-        {
-            get
-            {
-                return _AfricanAmericanPercent;
-            }
-            set
-            {
-                if (_AfricanAmericanPercent ==  null || _AfricanAmericanPercent != value)
-                {
-                    _AfricanAmericanPercent = value;
-                    PropertyIsChanged(nameof(AfricanAmericanPercent));
-                }
-            }
-        }
+       private double? _AfricanAmericanPercent = null;
+       public double? AfricanAmericanPercent
+       {
+           get
+           {
+               return _AfricanAmericanPercent;
+           }
+           set
+           {
+               if (_AfricanAmericanPercent ==  null || _AfricanAmericanPercent != value)
+               {
+                   _AfricanAmericanPercent = value;
+                   PropertyIsChanged(nameof(AfricanAmericanPercent));
+               }
+           }
+       }
 
-        private double? _PoorPercent = null;
-        public double? PoorPercent
-        {
-            get
-            {
-                return _PoorPercent;
-            }
-            set
-            {
-                if (_PoorPercent ==  null || _PoorPercent != value)
-                {
-                    _PoorPercent = value;
-                    PropertyIsChanged(nameof(PoorPercent));
-                }
-            }
-        }
+       private double? _PoorPercent = null;
+       public double? PoorPercent
+       {
+           get
+           {
+               return _PoorPercent;
+           }
+           set
+           {
+               if (_PoorPercent ==  null || _PoorPercent != value)
+               {
+                   _PoorPercent = value;
+                   PropertyIsChanged(nameof(PoorPercent));
+               }
+           }
+       }
 
-        private double _PredictedPrice = 0;
-        public double PredictedPrice
-        {
-            get
-            {
-                return _PredictedPrice;
-            }
-            private set
-            {
-                if (_PredictedPrice != value)
-                {
-                    _PredictedPrice = value;
-                    PropertyIsChanged(nameof(PredictedPrice));
-                }
-            }
-        }
+       private double _PredictedPrice = 0;
+       public double PredictedPrice
+       {
+           get
+           {
+               return _PredictedPrice;
+           }
+           private set
+           {
+               if (_PredictedPrice != value)
+               {
+                   _PredictedPrice = value;
+                   PropertyIsChanged(nameof(PredictedPrice));
+               }
+           }
+       }
 
-        private Command _PredictHomePrice;
-        public Command PredictHomePrice
-        {
-            get
-            {
-                if (_PredictHomePrice == null)
-                {
-                    _PredictHomePrice = new Command(async () => await PredictHousePriceAsync());
-                }
-                return _PredictHomePrice;
-            }
-        }
+       private Command _PredictHomePrice;
+       public Command PredictHomePrice
+       {
+           get
+           {
+               if (_PredictHomePrice == null)
+               {
+                   _PredictHomePrice = new Command(async () => await PredictHousePriceAsync());
+               }
+               return _PredictHomePrice;
+           }
+       }
 
+       private async Task PredictHousePriceAsync()
+       {
+           var predictedPrice = await GetHomePriceAsync(Crime, ZoningPercent, IndustryPercent, RiverLot, NoxConcentration, Rooms, HomeAge, WorkDistance, HighwayAccess, TaxInThousands, StudentTeacherRatio, AfricanAmericanPercent, PoorPercent); 
 
+           PredictedPrice = predictedPrice;
+       }
 
-        private async Task PredictHousePriceAsync()
-        {
-            var predictedPrice = await GetHomePriceAsync(Crime, ZoningPercent, IndustryPercent, RiverLot, NoxConcentration, Rooms, HomeAge, WorkDistance, HighwayAccess, TaxInThousands, StudentTeacherRatio, AfricanAmericanPercent, PoorPercent); 
+       private async Task<double> GetHomePriceAsync(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
+       {
+           double returnValue = 0;
 
-            PredictedPrice = predictedPrice;
-        }
+           var token = await GetAccessToken();
 
-        private async Task<double> GetHomePriceAsync(double? crime, double? zoningPercent, double? industryPercent, double? riverLot, double? noxConcentration, double? rooms, double? homeAge, double? workDistance, double? highwayAccess, double? taxInThousands, double? studentTeacherRation, double? africanAmericanPercent, double? poorPercent)
-        {
-            double returnValue = 0;
+           if (!string.IsNullOrEmpty(token))
+           {
+               var serviceURL = $"https://us-south.ml.cloud.ibm.com/ml/v4/deployments/linkedin_boston_housing/predictions?version=2021-05-01";
 
-            var token = await GetAccessToken();
+               var predictionRequest = new HttpClient();
+               predictionRequest.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+               predictionRequest.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            if (!string.IsNullOrEmpty(token))
-            {
-                var serviceUrl = "{url}";
-                var tokenRequest = new HttpClient();
+               var modelRequst = new ModelRequest();
 
-                tokenRequest.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
-                tokenRequest.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+               modelRequst.InputData[0].Values.Add(new List<double?> {crime, zoningPercent, industryPercent, riverLot, noxConcentration, rooms, homeAge, workDistance, highwayAccess, taxInThousands, studentTeacherRation, africanAmericanPercent, poorPercent});
 
-                var modelRequest = new ModelRequest();
-                modelRequest.InputData.Values.Add(new List<double?> { crime, zoningPercent, industryPercent, riverLot, noxConcentration, rooms, homeAge, workDistance, highwayAccess, taxInThousands, studentTeacherRation, africanAmericanPercent, poorPercent });
+               var json = JsonConvert.SerializeObject(modelRequst);
+               using var requestMessage = new HttpRequestMessage(HttpMethod.Post, serviceURL) { 
+                   Content = new StringContent(json, Encoding.UTF8, "application/json")
+                   };
 
-                var json = JsonConvert.SerializeObject(modelRequest);
+               var response = await predictionRequest.SendAsync(requestMessage);
 
-                using var requestMessage = new HttpRequestMessage(HttpMethod.Post, serviceUrl) { Content = new StringContent(json, Encoding.UTF8, "application/json") };
+               response.EnsureSuccessStatusCode();
 
-                var response = await tokenRequest.SendAsync(requestMessage);
+               string responseBody = await response.Content.ReadAsStringAsync();
 
-                response.EnsureSuccessStatusCode();
+               var prediction = JsonConvert.DeserializeObject<Predictions>(responseBody);
 
-            }
+               if (prediction != null && prediction.predictions.Count >=0)
+               {
+                   returnValue = Convert.ToDouble(prediction.predictions[0].values[0][0]);
+               }
+               else
+               {
+                   returnValue = 0.0;
+               }
+           }
 
-            return returnValue;
-        }
+           return returnValue;
+       }
 
-        private async Task<string> GetAccessToken()
-        {
-            var tokenUrl = $"https://iam.cloud.ibm.com/identity/token";
-            var tokenRequest = new HttpClient();
+       private async Task<string> GetAccessToken()
+       {
+           var tokenUrl = $"https://iam.cloud.ibm.com/identity/token";
+           var tokenRequest = new HttpClient();
 
-            tokenRequest.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+           tokenRequest.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-            var formData = new List<KeyValuePair<string, string>> 
-            {
-                new KeyValuePair<string, string>("grant_type", "urn:ibm:params:oauth:grant-type:apikey"),
-                new KeyValuePair<string, string>("apikey", "{apiKey}}")
-            };
+           var formData = new List<KeyValuePair<string, string>>
+           {
+               new KeyValuePair<string, string>("grant_type", "urn:ibm:params:oauth:grant-type:apikey"),
+               new KeyValuePair<string, string>("apikey", "{apikey}")
+           };
 
-            using var requestMessage = new HttpRequestMessage(HttpMethod.Post, tokenUrl) { Content = new FormUrlEncodedContent(formData) };
+           using var requestMessage = new HttpRequestMessage(HttpMethod.Post, tokenUrl) { Content = new FormUrlEncodedContent(formData) };
 
-            var tokenResponse = await tokenRequest.SendAsync(requestMessage);
+           var tokenResponse = await tokenRequest.SendAsync(requestMessage);
 
-            tokenResponse.EnsureSuccessStatusCode();
-            string responseBody = await tokenResponse.Content.ReadAsStringAsync();
+           tokenResponse.EnsureSuccessStatusCode();
+           string responseBody = await tokenResponse.Content.ReadAsStringAsync();
 
-            var token = JsonConvert.DeserializeObject<Token>(responseBody);
+           var token = JsonConvert.DeserializeObject<Token>(responseBody);
 
-            return token?.access_token ?? string.Empty;
-        }
+           return token?.access_token ?? string.Empty;
 
-        private void PropertyIsChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+       }
 
-    public class Token
-    {
-        public string access_token { get; set; }
-    }
+       private void PropertyIsChanged(string propertyName)
+       {
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+       }
+   }
+
+   public class Token
+   {
+       public string access_token {get; set; }
+   }
+
+   public class Predictions
+   {
+       public List<Prediction> predictions { get; set; } = new List<Prediction>();
+   }
+
+   public class Prediction
+   {
+       public List<List<string>> values { get; set; } = new List<List<string>>();
+   }
 }
